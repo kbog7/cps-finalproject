@@ -1,11 +1,13 @@
 # first of all import the socket library 
-import socket                
+import socket, emailSender, os               
 from random import randint
 randint(100, 999)
 passcode = 'password1'
 SecAuth = randint(100000, 999999)
 SecAuth = str(SecAuth)
 print(SecAuth)
+command = "python C:\\Users\\David\\Documents\\MFA19\\cyberPhy\\finalProject\\emailSender.py "+SecAuth
+print(command)
 s = socket.socket()          
 print("Socket successfully created")
 
@@ -30,10 +32,13 @@ while True:
    c.send('please enter enter your password to be granted server access'.encode()) 
    password = c.recv(1024)
    password = password.decode("utf-8")
-   print(password.decode("utf-8"))
+   print(password)
    if(passcode == password):
        c.send('your password was correct, please see your email for the 2FA code'.encode())
+       #os.system(command)
+       #python emailSender.py '12345'
        #call to email program here
+       emailSender.send(SecAuth)
        TwoFA = c.recv(1024).decode("utf-8")
        if(SecAuth == TwoFA):
             c.send('you have gotten both forms of authentication correct, and have been granted access'.encode())

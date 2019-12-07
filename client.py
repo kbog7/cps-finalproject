@@ -11,11 +11,13 @@ port = 12345
 s.connect(('127.0.0.1', port)) 
   
 # receive data from the server 
-print (s.recv(1024)decode("utf-8"))
+print (s.recv(1024).decode("utf-8"))
 print (s.recv(1024).decode("utf-8"))
 password = input("Type your password and press enter: ")
 s.send(password.encode())
-print (s.recv(1024)decode("utf-8"))
+print (s.recv(1024).decode("utf-8"))
 password = input("Type the 2FA code and press enter: ")
+s.send(password.encode())
+print (s.recv(1024).decode("utf-8"))
 # close the connection 
 s.close()   
